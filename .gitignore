@@ -3,4 +3,5 @@
 # Do not ignore
 !.gitignore
 !Gemfile
-!sample-test.rb
+!README.md
+!blog-tests.rb

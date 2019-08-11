@@ -4,6 +4,8 @@ Browser test automation using ``Selenium`` & ``Ruby``.
 
 It tests user signup process to a blog with the follwing [Link](https://selenium-blog.herokuapp.com/signup).
 
+For iterative testing, it augments timestamp to the given username to create a new user everytime, instead of entering details for an existing user details from previous tests.
+
 ## Developed on:
 Linux :
 ```
@@ -26,7 +28,33 @@ gem install bundler
 bundle install
 ```
 
-## Run tests
+## Structure
+The structure is built using ``Page Object Pattern`` where each page has its own class with its own CSS selectors and methods to perform the given tests. 
 ```bash
-username=<yourUserName> rspec blog-tests.rb
+.
+├── blog-tests-distributed.rb   # Main test runner
+├── Gemfile                     # Gem, Ruby's package manager
+├── README.md                   # markdown intro
+├── SignupPage.rb               # Signup Page Class
+└── UsersPage.rb                # Users Page Class
+```
+
+## Run tests
+
+### Run directly:
+Run the tests on the local machine.
+```bash
+rspec blog-tests.rb
+```
+
+### Run as distributed system test:
+Run the tests on the Hub-Node distributed system. This setup requires ``selenium standadlone server``. It can be downloaded from [here](https://www.seleniumhq.org/download/).
+```bash
+# Navigate to the directory containing the downloaded [.jar] file.
+# Start the Hub:
+java -jar selenium-server-standalone-3.141.59.jar -role hub -port 40000
+# Create a node
+java -jar selenium-server-standalone-3.141.59.jar -role node -hub https://192.168.1.8:40000/grid/register
+# Run tests:
+rspec blog-tests-distributed.rb
 ```

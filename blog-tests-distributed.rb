@@ -10,13 +10,13 @@ expectedBannerText = "Welcome to the alpha blog "+userName
 
 describe "Blog application" do
   describe "signup to the blog application" do
-    it "confirm that a user can successfully signup" do
+	
+	it "confirm that a user can successfully signup" do
   	   	
-	    @driver = Selenium::WebDriver.for :firefox
+	    @driver = Selenium::WebDriver.for :remote, url: "http://192.168.1.8:40000/wd/hub", desired_capabilities: :firefox
 		# Go to signup form
 		@driver.navigate.to "https://selenium-blog.herokuapp.com/signup"
-		# Fill out and submit form
-		
+
 		signupPage = SignupPage.new(@driver)
 
 		signupPage.enterUserName(userName)
@@ -26,6 +26,7 @@ describe "Blog application" do
 		signupPage.enterPassword("password")
 
 		signupPage.submit()
+
 
 		# Confirm user is signed up successfully
 		usersPage = UsersPage.new(@driver)
